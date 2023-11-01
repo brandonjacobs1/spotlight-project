@@ -1,0 +1,24 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model spotlight {
+  id                 Int       @id(map: "spotlight_spotlight_pkey") @default(autoincrement())
+  last_name          String?   @db.VarChar(20)
+  first_name_husband String?   @db.VarChar(20)
+  first_name_wife    String?   @db.VarChar(20)
+  date_asked         DateTime? @db.Date
+  date_ready         DateTime? @db.Date
+  date_planned       DateTime? @db.Date
+  date_slacked       DateTime? @db.Date
+  date_joined        DateTime? @db.Date
+  member_type        String?   @db.VarChar(1)
+  bio                String?
+  image              String?   @db.VarChar(100)
+  status             String?   @db.VarChar(2)
+}
