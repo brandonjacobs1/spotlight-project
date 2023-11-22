@@ -4,7 +4,11 @@ import Image from "next/image";
 
 async function loadData() {
     let spotlights = await getAllSpotlights()
-    let promises = spotlights.map(s => getImageUrl(`private/${s.image}`))
+    spotlights.map
+    console.log(JSON.stringify(spotlights))
+    let promises = spotlights.map(s => {
+        if (s.image) return getImageUrl(`${s.image}`)
+    })
     const imageUrls = await Promise.all(promises);
 
     spotlights.forEach((spotlight, index) => {
