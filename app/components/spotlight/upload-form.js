@@ -59,17 +59,17 @@ const UploadForm = ({initialValues}) => {
         console.log(`Form data: ${JSON.stringify(values)}`);
 
         // Format dates for prisma
-        ['date_asked', 'date_ready', 'date_planned', 'date_slacked', 'date_joined'].forEach(date => {
-            if (values[date]) {
-                try {
-                    values[date] = values[date].toISOString().split("T")[0]
-                } catch (e){
-                    console.log(e)
-                    console.log(date)
-                    if(values.date) console.log(values[date])
-                }
-            }
-        });
+        // ['date_asked', 'date_ready', 'date_planned', 'date_slacked', 'date_joined'].forEach(date => {
+        //     if (values[date]) {
+        //         try {
+        //             values[date] = values[date].toISOString().split("T")[0]
+        //         } catch (e){
+        //             console.log(e)
+        //             console.log(date)
+        //             if(values.date) console.log(values[date])
+        //         }
+        //     }
+        // });
 
         let filePath
         if (values.image && values.last_name && values.husband_first_name && values.wife_first_name) {
@@ -87,7 +87,14 @@ const UploadForm = ({initialValues}) => {
                 console.log(`Error form submit: ${JSON.stringify(data.error)}`)
             }
         } else{
-            //TODO Add handling for no image
+            try{
+                const res = await axios.post('api/create-spotlight', {values})
+                if (res.status === 200) return router.push('/spotlights')
+            }catch (e) {
+                console.log(e)
+
+            }
+
         }
     }
 
