@@ -1,16 +1,34 @@
 import React from "react";
+import { DatePicker } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers";
 
-function DateInput({inputName, label, touched, errors, getFieldProps}) {
+function DateInput({ inputName, label, handleBlur, setFieldValue, value }) {
+    const [error, setError] = React.useState(null);
 
-    return <div className={`form-row ${touched[inputName] && errors[inputName] ? 'input-error' : ''}`}>
-        <label htmlFor={inputName}>{label}</label>
-        <input
-            type='date'
-            id={inputName}
-            {...getFieldProps(inputName)}
-        />
-        {touched[inputName] && errors[inputName] && <span className="error">{errors[inputName]}</span>}
-    </div>
+    const handleChange = (selectedDate) => {
+        // Convert the selectedDate to ISO format
+        // const isoDate = selectedDate.toISOString().split("T")[0];
+        setFieldValue(inputName, selectedDate);
+    };
+
+    return (
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker
+                label={label}
+                id={inputName}
+                value={value}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                onError={(newError) => setError(newError)}
+                slotProps={{
+                    textField: {
+                        helperText: error,
+                    },
+                }}
+            />
+        </LocalizationProvider>
+    );
 }
 
-export default DateInput
+export default DateInput;

@@ -1,6 +1,9 @@
+import React from 'react';
 import {getAllSpotlights} from '@/lib/db/get-all-spotlights'
 import getImageUrl from "@/lib/s3/get-image";
 import AdminCard from "@/app/components/spotlight/admin-card";
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
 
 async function loadData() {
     let spotlights = await getAllSpotlights()
@@ -14,7 +17,6 @@ async function loadData() {
         spotlight.imageUrl = imageUrls[index];
     });
     spotlights =  filterByStatus(spotlights)
-    console.log(spotlights)
     return spotlights
 }
 
@@ -25,63 +27,77 @@ function filterByStatus(spotlights) {
     }, {});
 }
 
-export default async function spotlightList() {
-    const spotlights = await loadData()
+export default async function SpotlightList() {
+    const spotlights = await loadData();
 
-        return <>
-            {spotlights.NS ?
+    return (
+        <>
+            {spotlights.NS ? (
                 <div>
-                    <h2 className="display-5">Not Started</h2>
-                    <div className="row row-cols-1 row-cols-md-4 g-4">
+                    <Typography variant="h2">
+                        Not Started
+                    </Typography>
+                    <Grid container spacing={2}>
                         {spotlights.NS.map(s => (
-                            <AdminCard spotlight={s} Key={s.id}></AdminCard>
+                            <AdminCard key={s.id} spotlight={s} />
                         ))}
-                    </div>
+                    </Grid>
                 </div>
-                : null}
+            ) : null}
 
-            {spotlights.A ?
+            {spotlights.A ? (
                 <div>
-                    <h2 className="display-5">Asked</h2>
-                    <div className="row row-cols-1 row-cols-md-4 g-4">
+                    <Typography variant="h2">
+                        Asked
+                    </Typography>
+                    <Grid container spacing={2}>
                         {spotlights.A.map(s => (
-                            <AdminCard spotlight={s} Key={s.id}></AdminCard>
+                            <AdminCard key={s.id} spotlight={s} />
                         ))}
-                    </div>
+                    </Grid>
                 </div>
-                : null}
+            ) : null}
 
-            {spotlights.R ?
+            {spotlights.R ? (
                 <div>
-                    <h2 className="display-5">Ready</h2>
-                    <div className="row row-cols-1 row-cols-md-4 g-4">
+                    <Typography variant="h2">
+                        Ready
+                    </Typography>
+                    <Grid container spacing={2}>
                         {spotlights.R.map(s => (
-                            <AdminCard spotlight={s} Key={s.id}></AdminCard>
+                            <AdminCard key={s.id} spotlight={s} />
                         ))}
-                    </div>
+                    </Grid>
                 </div>
-                : null}
+            ) : null}
 
-            {spotlights.P ?
+            {spotlights.P ? (
                 <div>
-                    <h2 className="display-5">Planned</h2>
-                    <div className="row row-cols-1 row-cols-md-4 g-4">
+                    <Typography variant="h2">
+                        Planned
+                    </Typography>
+                    <Grid container spacing={2}>
                         {spotlights.P.map(s => (
-                            <AdminCard spotlight={s} Key={s.id}></AdminCard>
+                            <AdminCard key={s.id} spotlight={s} />
                         ))}
-                    </div>
+                    </Grid>
                 </div>
-                : null}
+            ) : null}
 
-            {spotlights.S ?
-            <div>
-                <h2 className="display-5">Slacked</h2>
-                <div className="row row-cols-1 row-cols-md-4 g-4">
+            {spotlights.S ? (
+                <div>
+                    <Typography variant="h2">
+                        Slacked
+                    </Typography>
+                    <Grid container spacing={{xs: 2, md: 3}}>
                         {spotlights.S.map(s => (
-                            <AdminCard spotlight={s} Key={s.id}></AdminCard>
+                            <Grid item key={s.id} xs={12} sm={4} md={3} lg={3}>
+                                <AdminCard  spotlight={s} />
+                            </Grid>
                         ))}
+                    </Grid>
                 </div>
-            </div>
-            : null}
+            ) : null}
         </>
+    );
 }

@@ -1,40 +1,18 @@
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
+
 export default function Home() {
     return (
-        <div className="d-flex
-justify-content-center align-items-center">
-            <button
-                type="button"
-                className="btn btn-primary"
-                data-bs-toggle="modal"
-                data-bs-target="#exampleModal"
-            >
-                Launch demo modal
-            </button>
-
-            <div
-                className="modal fade"
-                id="exampleModal"
-                tabIndex="-1"
-                aria-labelledby="exampleModalLabel"
-                aria-hidden="true"
-            >
-                <div className="modal-dialog">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">
-                                Modal title
-                            </h5>
-                            <button
-                                type="button"
-                                className="btn-close"
-                                data-bs-dismiss="modal"
-                                aria-label="Close"
-                            ></button>
-                        </div>
-                        <div className="modal-body">...</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    )
+        <main>
+            <Container>
+                <Box>
+                    <Card>
+                        <Typography variant="h2">16th Ward Spotlights</Typography>
+                    </Card>
+                </Box>
+            </Container>
+        </main>
+    );
 }
