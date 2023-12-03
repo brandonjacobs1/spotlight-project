@@ -49,11 +49,6 @@ const UploadForm = ({initialValues}) => {
 
     })
 
-    function stripDateTime(date, input) {
-        if (date) return date.toISOString().split("T")[0]
-        return null
-    }
-
     const formik = useFormik({
         initialValues: initialValues,
         onSubmit: (values) => submit(values),
