@@ -7,14 +7,13 @@ import axios from "axios";
 import DateInput from "@/app/components/spotlight/date-input";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
-import {FormControl, FormLabel, InputLabel, MenuItem, Radio, RadioGroup, Select} from "@mui/material";
+import {FormControl, FormLabel, Radio, RadioGroup} from "@mui/material";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Grid from "@mui/material/Grid";
 import {statusArray} from "@/app/util/status";
 import Button from "@mui/material/Button";
 import UploadButton from "@/app/components/spotlight/upload-button";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import Typography from "@mui/material/Typography";
+
 const UploadForm = ({initialValues}) => {
     const router = useRouter()
     const MAX_SIZE = 10000000

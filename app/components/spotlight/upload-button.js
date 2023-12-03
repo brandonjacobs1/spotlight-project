@@ -4,8 +4,6 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import Typography from "@mui/material/Typography";
 import React from "react";
 import TextField from "@mui/material/TextField";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
 export default function UploadButton({value, id, setFieldValue}) {
     return (
         <>

@@ -14,7 +14,6 @@ import { red } from '@mui/material/colors';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MoreVert from '@mui/icons-material/MoreVert';
 import {statusMap} from '../../util/status'
 
 const ExpandMore = styled((props) => {
