@@ -37,4 +37,6 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 ##Docker commands
 docker build -t <image-name> .
-docker run --rm -p 3000:3000 --name <container-name> <image-name>
+sudo docker run --rm -p 3000:3000 --name <container-name> <image-name>
+
+docker run --hostname=b66b30ce207e --mac-address=02:42:ac:11:00:02 --env=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin --env=NODE_VERSION=20.10.0 --env=YARN_VERSION=1.22.19 --workdir=/app --runtime=runc -d initital-spotlight:latest
