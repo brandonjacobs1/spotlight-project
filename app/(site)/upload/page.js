@@ -1,8 +1,6 @@
 'use client'
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
 import CssBaseline from '@mui/material/CssBaseline';
-import AddIcon from '@mui/icons-material/Add';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -55,11 +53,11 @@ export default function Page() {
                             alignItems: 'center',
                         }}
                     >
-                        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                            <AddIcon />
-                        </Avatar>
+                        {/*<Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>*/}
+                        {/*    <AddIcon />*/}
+                        {/*</Avatar>*/}
                         <Typography component="h1" variant="h5">
-                            Create Spotlight
+                            New Spotlight
                         </Typography>
                         <UploadForm initialValues={initialValues}></UploadForm>
                     </Box>

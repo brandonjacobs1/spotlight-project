@@ -1,18 +1,13 @@
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
+import CssBaseline from "@mui/material/CssBaseline";
+import * as React from "react";
+import Box from "@mui/material/Box";
 
 export default function Home() {
     return (
-        <main>
-            <Container>
-                <Box>
-                    <Card>
-                        <Typography variant="h2">16th Ward Spotlights</Typography>
-                    </Card>
-                </Box>
-            </Container>
-        </main>
+        <Box component='main'>
+            <CssBaseline />
+            <Typography variant="h2">16th Ward Spotlights</Typography>
+        </Box>
     );
 }

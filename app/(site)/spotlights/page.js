@@ -4,6 +4,7 @@ import getImageUrl from "@/lib/s3/get-image";
 import AdminCard from "@/app/components/spotlight/admin-card";
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
+import CssBaseline from "@mui/material/CssBaseline";
 
 async function loadData() {
     let spotlights = await getAllSpotlights()
@@ -31,7 +32,8 @@ export default async function SpotlightList() {
     const spotlights = await loadData();
 
     return (
-        <>
+        <Grid component={'main'}>
+            <CssBaseline />
             {spotlights.NS ? (
                 <div>
                     <Typography variant="h2">
@@ -98,6 +100,6 @@ export default async function SpotlightList() {
                     </Grid>
                 </div>
             ) : null}
-        </>
+        </Grid>
     );
 }
