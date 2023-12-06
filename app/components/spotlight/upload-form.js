@@ -58,11 +58,10 @@ const UploadForm = ({initialValues}) => {
 
     const submit = async (values) => {
         console.log(`Form data: ${JSON.stringify(values)}`);
-        // let apiPath = '/api/create-spotlight'
-        // if (initialValues.id) apiPath = '/api/edit-spotlight'
         let filePath
-        if (values.image && values.last_name && values.first_name_husband && values.first_name_wife) {
+        if (values.image && values.image.lastModified && values.last_name && values.first_name_husband && values.first_name_wife) {
             // get image
+            console.log('in image function')
             let type = values.image.type
             const index = type.lastIndexOf('/')
             type = type.substring(index + 1)
@@ -77,6 +76,8 @@ const UploadForm = ({initialValues}) => {
             }
         } else{
             try {
+                console.log('in no image function')
+
                 const res = await axios.post('/api/create-spotlight', {values})
                 if (res.status === 200) return router.push('/spotlights')
             } catch (e) {
