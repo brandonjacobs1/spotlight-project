@@ -104,7 +104,7 @@ function AdminCard({spotlight}) {
                 </Typography>
             </CardContent>
             <CardActions disableSpacing>
-                <IconButton aria-label="edit">
+                <IconButton aria-label="edit" href={`/editSpotlight/${spotlight.id}`}>
                     <EditIcon />
                 </IconButton>
                 <IconButton aria-label="delete">
