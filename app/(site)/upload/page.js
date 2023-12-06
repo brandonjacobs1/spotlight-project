@@ -12,8 +12,8 @@ import UploadForm from "@/app/components/spotlight/upload-form";
 export default function Page() {
     const initialValues = {
         last_name: '',
-        husband_first_name: '',
-        wife_first_name: '',
+        first_name_husband: '',
+        first_name_wife: '',
         bio: '',
         member_type: '',
         status: 'NS',

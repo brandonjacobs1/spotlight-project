@@ -22,10 +22,10 @@ const UploadForm = ({initialValues}) => {
         last_name: yup.string()
             .required("Last name is required")
             .max(20, 'Last name cannot be longer than 20 characters'),
-        husband_first_name: yup.string()
+        first_name_husband: yup.string()
             .required("Husband's first name is required")
             .max(20, 'Wife\'s first name cannot be longer than 20 characters'),
-        wife_first_name: yup.string()
+        first_name_wife: yup.string()
             .required("Wife's first name is required")
             .max(20, 'Husband\'s first name cannot be longer than 20 characters'),
         bio: yup.string(),
@@ -39,9 +39,10 @@ const UploadForm = ({initialValues}) => {
         date_slacked: yup.date().nullable(),
         date_joined: yup.date().nullable(),
         image: yup.mixed()
-            .when(['last_name', 'husband_first_name', 'wife_first_name'], {
-                is: (last_name, husband_first_name, wife_first_name) => (!last_name || !husband_first_name || !wife_first_name),
-                then: () => yup.mixed().required('Image is required when last name and both first names are incomplete')
+            .when(['last_name', 'first_name_husband', 'first_name_wife'], {
+                is: (last_name, first_name_husband, first_name_wife) => (!last_name || !first_name_husband || !first_name_wife),
+                then: () => yup.mixed().required('Image is required when last name and both first names are incomplete'),
+                otherwise: () => yup.mixed()
             })
             .test('is file right size and type', 'Max file size is 10Mb', (value) => {
                 return !value || (value.size <= MAX_SIZE);
@@ -57,42 +58,29 @@ const UploadForm = ({initialValues}) => {
 
     const submit = async (values) => {
         console.log(`Form data: ${JSON.stringify(values)}`);
-
-        // Format dates for prisma
-        // ['date_asked', 'date_ready', 'date_planned', 'date_slacked', 'date_joined'].forEach(date => {
-        //     if (values[date]) {
-        //         try {
-        //             values[date] = values[date].toISOString().split("T")[0]
-        //         } catch (e){
-        //             console.log(e)
-        //             console.log(date)
-        //             if(values.date) console.log(values[date])
-        //         }
-        //     }
-        // });
-
+        // let apiPath = '/api/create-spotlight'
+        // if (initialValues.id) apiPath = '/api/edit-spotlight'
         let filePath
-        if (values.image && values.last_name && values.husband_first_name && values.wife_first_name) {
+        if (values.image && values.last_name && values.first_name_husband && values.first_name_wife) {
             // get image
             let type = values.image.type
             const index = type.lastIndexOf('/')
             type = type.substring(index + 1)
-            filePath = `images/${values.last_name}_${values.husband_first_name}_${values.wife_first_name}.${type}`
-            const {data} = await axios.post('api/create-spotlight', {filePath, values})
+            filePath = `images/${values.last_name}_${values.first_name_husband}_${values.first_name_wife}.${type}`
+            const {data} = await axios.post('/api/create-spotlight', {filePath, values})
             // upload image
             if (data.url) {
                 const res = await axios.put(data.url, values.image)
                 if (res.status === 200) return router.push('/spotlights')
             } else {
-                console.log(`Error form submit: ${JSON.stringify(data.error)}`)
+                console.log(`Error in form submit with image: ${JSON.stringify(data.error)}`)
             }
         } else{
-            try{
-                const res = await axios.post('api/create-spotlight', {values})
+            try {
+                const res = await axios.post('/api/create-spotlight', {values})
                 if (res.status === 200) return router.push('/spotlights')
-            }catch (e) {
-                console.log(e)
-
+            } catch (e) {
+                console.log(`Error in form submit no image: ${e}`)
             }
 
         }
@@ -142,11 +130,11 @@ const UploadForm = ({initialValues}) => {
                             margin="normal"
                             required
 
-                            id={"husband_first_name"}
+                            id={"first_name_husband"}
                             label={"Husband's First Name"}
-                            {...getFieldProps("husband_first_name")}
-                            error={touched.husband_first_name && errors.husband_first_name ? true : null}
-                            helperText={touched.husband_first_name && errors.husband_first_name ? errors.husband_first_name : null}
+                            {...getFieldProps("first_name_husband")}
+                            error={touched.first_name_husband && errors.first_name_husband ? true : null}
+                            helperText={touched.first_name_husband && errors.first_name_husband ? errors.first_name_husband : null}
                         />
                     </FormControl>
                 </Grid>
@@ -156,11 +144,11 @@ const UploadForm = ({initialValues}) => {
                             margin="normal"
                             required
                             fullWidth
-                            id={"wife_first_name"}
+                            id={"first_name_wife"}
                             label={"Wife's First Name"}
-                            {...getFieldProps("wife_first_name")}
-                            error={touched.wife_first_name && errors.wife_first_name ? true : null}
-                            helperText={touched.wife_first_name && errors.wife_first_name ? errors.wife_first_name : null}
+                            {...getFieldProps("first_name_wife")}
+                            error={touched.first_name_wife && errors.first_name_wife ? true : null}
+                            helperText={touched.first_name_wife && errors.first_name_wife ? errors.first_name_wife : null}
                         />
                     </FormControl>
                 </Grid>
@@ -242,10 +230,9 @@ const UploadForm = ({initialValues}) => {
                 fullWidth
                 variant={'contained'}
                 type="submit"
-                className={dirty && isValid ? "" : "disabled-btn"}
                 disabled={!(dirty && isValid)}
             >
-                Submit
+                Save
             </Button>
         </Box>
 

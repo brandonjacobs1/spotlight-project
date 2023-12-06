@@ -2,15 +2,21 @@ import React from "react";
 import { DatePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers";
+import dayjs from "dayjs";
 
 function DateInput({ inputName, label, handleBlur, setFieldValue, value }) {
     const [error, setError] = React.useState(null);
 
     const handleChange = (selectedDate) => {
         // Convert the selectedDate to ISO format
-        // const isoDate = selectedDate.toISOString().split("T")[0];
         setFieldValue(inputName, selectedDate);
     };
+
+    if (value) {
+        value = dayjs(value)
+    } else {
+        value = null
+    }
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
