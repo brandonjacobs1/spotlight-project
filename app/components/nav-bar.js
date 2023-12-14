@@ -14,6 +14,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import Link from '@mui/material/Link';
+import {useRouter} from "next/navigation";
 
 const pages = [
     {label :'Spotlights', ref: '/spotlights'},
@@ -24,6 +25,7 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 function NavBar() {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
+    const router = useRouter();
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -94,7 +96,8 @@ function NavBar() {
                         >
                             {pages.map((page) => (
                                 <MenuItem key={page.label} onClick={handleCloseNavMenu}>
-                                        <Link textAlign="center" href={page.ref} underline={'none'} color={'inherit'}>{page.label}</Link>
+                                        {/*<Link textAlign="center" href={page.ref} underline={'none'} color={'inherit'}>{page.label}</Link>*/}
+                                    <button type={'button'} onClick={() => router.push(page.ref)}>{page.label}</button>
                                 </MenuItem>
                             ))}
                         </Menu>
