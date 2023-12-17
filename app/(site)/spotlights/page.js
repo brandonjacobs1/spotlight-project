@@ -29,7 +29,13 @@ function filterByStatus(spotlights) {
 }
 
 export default async function SpotlightList() {
-    const spotlights = await loadData();
+    let spotlights
+    try {
+        spotlights = await loadData();
+    }catch (e) {
+        console.log(e)
+        return null
+    }
 
     return (
         <Grid component={'main'}>

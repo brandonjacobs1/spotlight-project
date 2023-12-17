@@ -8,7 +8,6 @@ COPY package*.json ./
 RUN npm ci
 # Copy the app source code to the container  
 COPY . .
-
 #Generate prisma client
 RUN npx prisma generate
 # Build the Next.js app  
