@@ -16,17 +16,14 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
-      - docker build -t $REPOSITORY_URI:latest .
-      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
+      - docker build -t spotlight-repo .
+      - docker tag spotlight-repo:latest 321177802449.dkr.ecr.us-east-2.amazonaws.com/spotlight-repo:latest
 
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      - echo Logging in to Amazon ECR...
-      - aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 321177802449.dkr.ecr.us-east-2.amazonaws.com
-      - docker push $REPOSITORY_URI:latest
-      - docker push $REPOSITORY_URI:$IMAGE_TAG
+      - docker push 321177802449.dkr.ecr.us-east-2.amazonaws.com/spotlight-repo:latest
       - echo Writing image definitions file...
       - printf '[{"name":$ecs_container_name,"imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
 artifacts:
