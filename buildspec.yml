@@ -25,6 +25,7 @@ phases:
       - echo Pushing the Docker image...
       - docker push 321177802449.dkr.ecr.us-east-2.amazonaws.com/spotlight-repo:latest
       - echo Writing image definitions file...
+      - printf '[{"name":$ecs_container_name,"imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG
       - printf '[{"name":$ecs_container_name,"imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
 artifacts:
   files: imagedefinitions.json
