@@ -17,8 +17,7 @@ phases:
       - echo Build started on `date`
       - echo Building the Docker image...
       - docker build -t spotlight-repo .
-      - docker tag spotlight-repo:latest 321177802449.dkr.ecr.us-east-2.amazonaws.com/spotlight-repo:latest
-
+      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
   post_build:
     commands:
       - echo Build completed on `date`
