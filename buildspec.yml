@@ -8,6 +8,7 @@ phases:
       - REPOSITORY_URI=$ecr_uri
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=${COMMIT_HASH:=latest}
+      - printenv > .env
   build:
     commands:
       - echo Build started on `date`
