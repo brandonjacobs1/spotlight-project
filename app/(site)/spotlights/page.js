@@ -3,8 +3,8 @@ import React, {useEffect, useState} from 'react';
 import AdminCard from "@/app/components/spotlight/admin-card";
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import CssBaseline from "@mui/material/CssBaseline";
 import axios from "axios";
+import ReactLoading from 'react-loading';
 
 
 
@@ -22,13 +22,15 @@ export default function SpotlightList() {
     }, []);
 
     if (!spotlights) {
-        return null; // You may render a loading indicator here
+        return (
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                <ReactLoading type={'balls'} color={'rgba(24,118,209, .7)'} height={'5%'} width={'5%'}/>
+            </div>
+        );
     }
-    console.log('Spotlights: ', spotlights)
 
     return (
         <Grid component={'main'}>
-            <CssBaseline />
             {spotlights.NS ? (
                 <div>
                     <Typography variant="h2">
