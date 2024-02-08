@@ -1,41 +1,30 @@
-import React from 'react';
-import {getAllSpotlights} from '@/lib/db/get-all-spotlights'
-import getImageUrl from "@/lib/s3/get-image";
+'use client'
+import React, {useEffect, useState} from 'react';
 import AdminCard from "@/app/components/spotlight/admin-card";
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import CssBaseline from "@mui/material/CssBaseline";
+import axios from "axios";
 
-async function loadData() {
-    let spotlights = await getAllSpotlights()
 
-    let promises = spotlights.map(s => {
-        if (s.image) return getImageUrl(`${s.image}`)
-    })
-    const imageUrls = await Promise.all(promises);
 
-    spotlights.forEach((spotlight, index) => {
-        spotlight.imageUrl = imageUrls[index];
-    });
-    spotlights =  filterByStatus(spotlights)
-    return spotlights
-}
+export default function SpotlightList() {
+    const [spotlights, setSpotlights] = useState(null);
 
-function filterByStatus(spotlights) {
-    return spotlights.reduce((sorted, s) => {
-        sorted[s.status] = [...(sorted[s.status] || []), s];
-        return sorted;
-    }, {});
-}
+    useEffect(() => {
+        axios.get('/api/get-spotlights')
+            .then(response => {
+                setSpotlights(response.data.spotlights);
+            })
+            .catch(error => {
+                console.error('Error fetching spotlights:', error);
+            });
+    }, []);
 
-export default async function SpotlightList() {
-    let spotlights
-    try {
-        spotlights = await loadData();
-    }catch (e) {
-        console.log(e)
-        return null
+    if (!spotlights) {
+        return null; // You may render a loading indicator here
     }
+    console.log('Spotlights: ', spotlights)
 
     return (
         <Grid component={'main'}>
@@ -47,7 +36,9 @@ export default async function SpotlightList() {
                     </Typography>
                     <Grid container spacing={2}>
                         {spotlights.NS.map(s => (
-                            <AdminCard key={s.id} spotlight={s} />
+                            <Grid item key={s.id} xs={12} sm={4} md={3} lg={3}>
+                                <AdminCard  spotlight={s} />
+                            </Grid>
                         ))}
                     </Grid>
                 </div>
@@ -60,7 +51,9 @@ export default async function SpotlightList() {
                     </Typography>
                     <Grid container spacing={2}>
                         {spotlights.A.map(s => (
-                            <AdminCard key={s.id} spotlight={s} />
+                            <Grid item key={s.id} xs={12} sm={4} md={3} lg={3}>
+                                <AdminCard  spotlight={s} />
+                            </Grid>
                         ))}
                     </Grid>
                 </div>
@@ -73,7 +66,9 @@ export default async function SpotlightList() {
                     </Typography>
                     <Grid container spacing={2}>
                         {spotlights.R.map(s => (
-                            <AdminCard key={s.id} spotlight={s} />
+                            <Grid item key={s.id} xs={12} sm={4} md={3} lg={3}>
+                                <AdminCard  spotlight={s} />
+                            </Grid>
                         ))}
                     </Grid>
                 </div>
@@ -86,7 +81,9 @@ export default async function SpotlightList() {
                     </Typography>
                     <Grid container spacing={2}>
                         {spotlights.P.map(s => (
-                            <AdminCard key={s.id} spotlight={s} />
+                            <Grid item key={s.id} xs={12} sm={4} md={3} lg={3}>
+                                <AdminCard  spotlight={s} />
+                            </Grid>
                         ))}
                     </Grid>
                 </div>
