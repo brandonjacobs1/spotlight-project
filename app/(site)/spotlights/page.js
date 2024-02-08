@@ -24,7 +24,7 @@ export default function SpotlightList() {
     if (!spotlights) {
         return (
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-                <ReactLoading type={'balls'} color={'rgba(24,118,209, .7)'} height={'5%'} width={'5%'}/>
+                <ReactLoading type={'cubes'} color={'rgba(24,118,209, .7)'} height={'5%'} width={'5%'}/>
             </div>
         );
     }
