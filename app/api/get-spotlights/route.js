@@ -1,8 +1,8 @@
-import {getAllSpotlights} from "@/lib/db/get-all-spotlights";
+import { getAllSpotlights } from "@/lib/db/get-all-spotlights";
 import getImageUrl from "@/lib/s3/get-image";
-import {NextResponse} from "next/server";
+import Server from "next/server";
 
-export async function GET() {
+export async function GET(req, res) {
     try {
         let spotlights = await getAllSpotlights()
 
@@ -14,16 +14,13 @@ export async function GET() {
         spotlights.forEach((spotlight, index) => {
             spotlight.imageUrl = imageUrls[index];
         });
-        spotlights = filterByStatus(spotlights)
-        return NextResponse.json({success: true, spotlights, error:false})
-    } catch (e) {
-        return NextResponse.json({success:false, error: e, spotlights:[]})
-    }
-}
+        spotlights = spotlights.reduce((sorted, s) => {
+            sorted[s.status] = [...(sorted[s.status] || []), s];
+            return sorted;
+        }, {});
 
-function filterByStatus(spotlights) {
-    return spotlights.reduce((sorted, s) => {
-        sorted[s.status] = [...(sorted[s.status] || []), s];
-        return sorted;
-    }, {});
+        return Server.NextResponse.json({success: true, spotlights, error:false})
+    } catch (e) {
+        return Server.NextResponse.json({success:false, error: e, spotlights:[]})
+    }
 }
