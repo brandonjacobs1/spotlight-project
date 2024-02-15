@@ -15,6 +15,7 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {statusMap} from '../../util/status'
+import Share from "@/app/components/Share";
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -28,7 +29,8 @@ const ExpandMore = styled((props) => {
 }));
 
 function AdminCard({spotlight}) {
-    const [expanded, setExpanded] = React.useState(false);
+    const [expanded, setExpanded] = React.useState(false)
+    const [imageLoaded, setImageLoaded] = React.useState(false)
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
@@ -83,11 +85,13 @@ function AdminCard({spotlight}) {
                 subheader={getStatusAndDate(spotlight)}
             />
             <CardMedia
+                id={spotlight.image}
                 component="img"
                 // style={{ objectPosition: 'top' }}
                 height="250"
                 image={spotlight.imageUrl}
                 alt={`The ${spotlight.last_name}'s`}
+                onLoad={() => setImageLoaded(true)}
             />
             <CardContent>
                 <Typography
@@ -110,6 +114,7 @@ function AdminCard({spotlight}) {
                 <IconButton aria-label="delete">
                     <DeleteForeverIcon/>
                 </IconButton>
+                <Share imageLoaded={imageLoaded} id={spotlight.image} text={"test text"}></Share>
                 <ExpandMore
                     expand={expanded}
                     onClick={handleExpandClick}
