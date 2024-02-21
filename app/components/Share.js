@@ -6,7 +6,6 @@ import IconButton from "@mui/material/IconButton";
 
 
 export default function Share({ id, bio, imageLoaded, url, name}) {
-
     async function createImage (id) {
         try {
             if (typeof window !== "undefined") {
@@ -22,35 +21,40 @@ export default function Share({ id, bio, imageLoaded, url, name}) {
                         }
                     )
                 ]
-                shareFile(filesArray, name, bio)
+                shareFile(filesArray)
             }
         } catch (e) {
             console.log('Error in createImage', e)
         }
     }
 
-    const shareFile = (files, title, bio) => {
+    function shareFile (files) {
         try {
-        if (navigator.canShare && navigator.canShare({ files: files })) {
-            navigator
-                .share({
-                    files: files,
-                    title,
-                    text: `*${name}*\n\n${bio}`
-                })
-                .then(() => console.log("Share was successful."))
-                .catch((error) => console.log("Sharing failed", error));
-        } else {
-            console.log(`Your system doesn't support sharing files.`);
-        }
+            if (navigator.canShare && navigator.canShare({ files: files })) {
+                navigator
+                    .share({
+                        files: files,
+                        name,
+                        text: `*${name}*\n\n${bio}`
+                    })
+                    .then(() => console.log("Share was successful."))
+                    .catch((error) => console.log("Sharing failed", error));
+            } else {
+                console.log(`Your system doesn't support sharing files.`);
+            }
         } catch (e){
-            console.log('Error in dataURLtoFile', e)
+            console.log('Error in shareFile', e)
         }
-    };
+    }
 
-    return imageLoaded ? (
-            <IconButton aria-label="share" onClick={async () => await createImage(id)}>
-                <IosShareIcon />
-            </IconButton>
-    ) : null
+    // return imageLoaded ? (
+    //         <IconButton aria-label="share" onClick={async () => await createImage(id)}>
+    //             <IosShareIcon />
+    //         </IconButton>
+    // ) : null
+    return (
+        <IconButton aria-label="share" onClick={async () => await createImage(id)}>
+            <IosShareIcon />
+        </IconButton>
+    )
 }
