@@ -114,7 +114,14 @@ function AdminCard({spotlight}) {
                 <IconButton aria-label="delete">
                     <DeleteForeverIcon/>
                 </IconButton>
-                <Share imageLoaded={imageLoaded} id={spotlight.image} text={"test text"}></Share>
+                <Share
+                    imageLoaded={imageLoaded}
+                    id={spotlight.image}
+                    bio={spotlight.bio}
+                    url={spotlight.imageUrl}
+                    name={`${spotlight.first_name_husband} and ${spotlight.first_name_wife} ${spotlight.last_name}`}
+                >
+                </Share>
                 <ExpandMore
                     expand={expanded}
                     onClick={handleExpandClick}
