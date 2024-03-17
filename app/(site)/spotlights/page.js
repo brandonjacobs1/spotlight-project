@@ -7,7 +7,7 @@ import axios from "axios";
 import ReactLoading from 'react-loading';
 
 
-
+export const revalidate = 60
 export default function SpotlightList() {
     const [spotlights, setSpotlights] = useState(null);
 
