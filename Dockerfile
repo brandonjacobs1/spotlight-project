@@ -10,8 +10,8 @@ RUN npm ci
 COPY . .
 #Generate prisma client
 RUN npx prisma generate
-## Build the Next.js app
-#RUN npm run build
+# Build the Next.js app
+RUN npm run build
 # Expose the port the app will run on  
 EXPOSE 3000
 # Start the app  
