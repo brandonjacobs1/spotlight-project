@@ -12,7 +12,7 @@ export default function SpotlightList() {
     const [spotlights, setSpotlights] = useState(null);
 
     useEffect(() => {
-        axios.get('/api/get-spotlights')
+        axios.post('/api/get-spotlights')
             .then(response => {
                 setSpotlights(response.data.spotlights);
             })

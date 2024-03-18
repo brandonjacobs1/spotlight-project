@@ -2,7 +2,7 @@ import { getAllSpotlights } from "@/lib/db/get-all-spotlights";
 import getImageUrl from "@/lib/s3/get-image";
 import Server from "next/server";
 
-export async function GET(req, res) {
+export async function POST() {
     try {
         let spotlights = await getAllSpotlights()
 
